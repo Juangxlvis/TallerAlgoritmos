@@ -9,7 +9,7 @@ def leer_datos(archivo):
         return [int(line.strip()) for line in f]
 
 # --- Bucle principal para medir tiempos ---
-print("🚀 Iniciando benchmarks de ORDENAMIENTO en Python...")
+print("Iniciando benchmarks de ORDENAMIENTO en Python...")
 
 resultados = []
 # Diccionario que asocia el nombre del algoritmo con su función
@@ -31,7 +31,7 @@ for tam in tamaños:
     for nombre, funcion_sort in algoritmos.items():
 
         if nombre == "ShakerSort" and tam == 1000000:
-            print(f"  ❌ {nombre}: Omitido por ser demasiado lento (estimado > 10 horas)")
+            print(f" {nombre}: Omitido por ser demasiado lento (estimado > 10 horas)")
             # Añadimos un resultado simbólico para que el CSV quede completo
             resultados.append({
                 "algoritmo": nombre,
@@ -48,7 +48,7 @@ for tam in tamaños:
         end_time = time.perf_counter()
 
         tiempo_total = end_time - start_time
-        print(f"  ✅ {nombre}: {tiempo_total:.4f} segundos")
+        print(f" check : {nombre}: {tiempo_total:.4f} segundos")
         
         resultados.append({
             "algoritmo": nombre,
@@ -62,4 +62,4 @@ df_resultados = pd.DataFrame(resultados)
 ruta_csv = "results/tiempos_ordenamiento_python.csv"
 df_resultados.to_csv(ruta_csv, index=False)
 
-print(f"\n🎉 ¡Benchmarks finalizados! Resultados guardados en '{ruta_csv}'")
+print(f"\n¡Benchmarks finalizados! Resultados guardados en '{ruta_csv}'")

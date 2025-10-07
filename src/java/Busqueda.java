@@ -1,6 +1,10 @@
 // Contenedor para los algoritmos de búsqueda
 public class Busqueda {
 
+//Fuente: https://www.geeksforgeeks.org/dsa/binary-search/
+
+
+
     public static int binarySearch(int arr[], int x) {
         int l = 0, r = arr.length - 1;
         while (l <= r) {
@@ -11,6 +15,8 @@ public class Busqueda {
         }
         return -1;
     }
+
+//Fuente: https://www.geeksforgeeks.org/dsa/jump-search/
 
     public static int jumpSearch(int arr[], int x) {
         int n = arr.length;
@@ -28,6 +34,8 @@ public class Busqueda {
         if (arr[prev] == x) return prev;
         return -1;
     }
+
+//Fuente: https://www.geeksforgeeks.org/dsa/ternary-search/
 
     public static int ternarySearch(int arr[], int x) {
         int l = 0, r = arr.length - 1;

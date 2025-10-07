@@ -40,7 +40,7 @@ for tam in tamaños:
         # El tiempo total se divide por el número de repeticiones
         tiempo_promedio = (end_time - start_time) / 100
         
-        print(f"  ✅ {nombre}: {tiempo_promedio:.8f} segundos")
+        print(f" check : {nombre}: {tiempo_promedio:.8f} segundos")
         
         resultados_busqueda.append({
             "algoritmo": nombre,

@@ -1,0 +1,53 @@
+Análisis de Rendimiento: Lenguaje Compilado (Java) vs. Interpretado (Python)
+Los resultados experimentales obtenidos en este taller demuestran de manera contundente la diferencia de rendimiento 
+entre un lenguaje compilado como Java y uno interpretado como Python, especialmente en tareas computacionalmente intensivas.
+
+1. Algoritmos de Ordenamiento: Estos presentan una diferencia exponencial
+En las pruebas de ordenamiento, la ventaja de Java es bastante grande y esta aumenta a medida que también aumenta el tamaño de los datos.
+
+Evidencia Concreta: Para ordenar 1,000,000 de elementos con el algoritmo MergeSort:
+
+Java (compilado): 0.1472 segundos.
+
+Python (interpretado): 4.1047 segundos.
+
+Esto significa que la implementación en Java fue aproximadamente 28 veces más rápida que la de Python. 
+Para RadixSort, la diferencia es aún mayor, con Java siendo cientos de veces más rápido.
+
+Explicación: El ordenamiento es una tarea que involucra millones de operaciones repetitivas de bajo nivel 
+(comparaciones, asignaciones e intercambios) dentro de bucles anidados.
+
+Java compila el código fuente a bytecode optimizado antes de la ejecución. 
+La Máquina Virtual de Java (JVM) luego de esto puede optimizar aún más este código "caliente" (JIT - Just-In-Time compilation), de esta forma
+traduciéndolo a instrucciones de máquina nativas que se ejecutan directamente en el CPU con una sobrecarga mínima.
+
+Python, por otro lado, debe interpretar el código línea por línea durante la ejecución. 
+Cada if, cada intercambio de variables, conlleva una capa de abstracción y sobrecarga del intérprete. 
+Al repetir esto millones de veces, la sobrecarga acumulada resulta en tiempos de ejecución significativamente más largos.
+
+2. Algoritmos de Búsqueda: La Brecha se Reduce
+
+En las pruebas de búsqueda, aunque Java sigue siendo generalmente más rápido, 
+la diferencia es mucho menos pronunciada y los resultados son más "ruidosos".
+
+Evidencia Concreta: Para buscar un elemento en 1,000,000 de elementos con BinarySearch:
+
+Java (compilado): 0.00000024 segundos (240 nanosegundos).
+
+Python (interpretado): 0.00000456 segundos (4560 nanosegundos).
+
+Aunque Java es ~19 veces más rápido, ambos tiempos son extremadamente pequeños, en el orden de los microsegundos o nanosegundos.
+
+Explicación: Los algoritmos de búsqueda como Binary Search son increíblemente eficientes (complejidad O(logn)). Realizan muy pocas operaciones.
+Para un millón de elementos, log2(1,000,000)≈20 comparaciones.
+
+Como la tarea en sí es tan corta, el tiempo total medido está fuertemente influenciado por factores externos 
+como la sobrecarga del sistema operativo, el inicio del proceso y la precisión del cronómetro.
+Si bien la ejecución de las ~20 comparaciones es más rápida en el bytecode de Java que en el intérprete de Python, la diferencia absoluta 
+es tan minúscula (nanosegundos) que es difícil de medir de forma consistente y no representa un cuello de botella en una aplicación real.
+
+3. Conclusión General
+Los resultados del taller validan la teoría de ciencias de la computación: para tareas que requieren un alto volumen de cómputo numérico 
+y operaciones repetitivas (como el ordenamiento de grandes arreglos), la eficiencia de un lenguaje compilado como Java ofrece una ventaja 
+de rendimiento masiva e innegable. Para tareas extremadamente rápidas y con pocas operaciones (como la búsqueda), aunque la ventaja del lenguaje 
+compilado persiste, se vuelve académicamente medible pero a menudo imperceptible en la práctica.
