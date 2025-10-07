@@ -1,0 +1,10 @@
+algoritmo;lenguaje;tamaño;tiempo
+BinarySearch;Java;10000;0,00001929
+JumpSearch;Java;10000;0,00000100
+TernarySearch;Java;10000;0,00000054
+BinarySearch;Java;100000;0,00000113
+JumpSearch;Java;100000;0,00000057
+TernarySearch;Java;100000;0,00000074
+BinarySearch;Java;1000000;0,00000024
+JumpSearch;Java;1000000;0,00000048
+TernarySearch;Java;1000000;0,00000072
