@@ -48,7 +48,7 @@ for tam in tamaños:
 
     plt.tight_layout()
     # Guardamos el archivo con un nombre único para cada tamaño
-    ruta_guardado = f"results/grafico_ordenamiento_{tam}.png"
+    ruta_guardado = f"results/graphics/grafico_ordenamiento_{tam}.png"
     plt.savefig(ruta_guardado)
     print(f"✅ Gráfico de ordenamiento para {tam} guardado en '{ruta_guardado}'")
     plt.close()
@@ -69,7 +69,7 @@ for tam in tamaños:
         ax.annotate(valor, (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='center', xytext=(0, 9), textcoords='offset points', fontsize=10)
 
     plt.tight_layout()
-    ruta_guardado = f"results/grafico_busqueda_{tam}.png"
+    ruta_guardado = f"results/graphics/grafico_busqueda_{tam}.png"
     plt.savefig(ruta_guardado)
     print(f"✅ Gráfico de búsqueda para {tam} guardado en '{ruta_guardado}'")
     plt.close()
