@@ -1,15 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.io.PrintWriter;
-
+import java.util.Map;
+import java.util.HashMap;
 
 public class MainOrdenamiento {
 
-    // Método para leer los números de un archivo y devolverlos en un arreglo
     public static int[] leerDatos(String archivo) throws FileNotFoundException {
         List<Integer> numeros = new ArrayList<>();
         Scanner scanner = new Scanner(new File(archivo));
@@ -31,9 +31,17 @@ public class MainOrdenamiento {
         String[] nombresAlgoritmos = {"ShakerSort", "DualPivotQuickSort", "HeapSort", "MergeSort", "RadixSort"};
         int[] tamaños = {10000, 100000, 1000000};
         
+        Map<String, String> complejidades = new HashMap<>();
+        complejidades.put("ShakerSort", "O(n²)");
+        complejidades.put("DualPivotQuickSort", "O(n log n)");
+        complejidades.put("HeapSort", "O(n log n)");
+        complejidades.put("MergeSort", "O(n log n)");
+        complejidades.put("RadixSort", "O(n·k)");
+        
         try (PrintWriter writer = new PrintWriter("results/tiempos_ordenamiento_java.csv")) {
             
-            writer.println("algoritmo;lenguaje;tamaño;tiempo");
+            writer.println("algoritmo;complejidad;lenguaje;tamaño;tiempo");
+            
             for (int tam : tamaños) {
                 String rutaArchivo = String.format("data/datos_%d.txt", tam);
                 int[] datosOriginales = leerDatos(rutaArchivo);
@@ -41,9 +49,11 @@ public class MainOrdenamiento {
                 System.err.println(String.format("\n--- Probando con %d elementos ---", tam));
 
                 for (String nombreAlg : nombresAlgoritmos) {
+                    String complejidad = complejidades.get(nombreAlg);
+
                     if (nombreAlg.equals("ShakerSort") && tam == 1000000) {
-                        writer.println("ShakerSort;Java;1000000;>900.0000");
-                        System.err.println("--- Omitiendo ShakerSort para 1,000,000 elementos por ser demasiado lento ---");
+                        writer.println(String.format("ShakerSort;%s;Java;1000000;", complejidad));
+                        System.err.println(String.format("--- Omitiendo ShakerSort (%s) para 1,000,000 elementos por ser demasiado lento ---", complejidad));
                         continue;
                     }
                     
@@ -61,11 +71,13 @@ public class MainOrdenamiento {
 
                     long endTime = System.nanoTime();
                     double tiempoTotal = (endTime - startTime) / 1e9;
-
-                    writer.println(String.format("%s;Java;%d;%.4f", nombreAlg, tam, tiempoTotal));                }
+                    
+                    System.err.println(String.format("  - %s (%s): %.4f segundos", nombreAlg, complejidad, tiempoTotal));
+                    writer.println(String.format("%s;%s;Java;%d;%.4f", nombreAlg, complejidad, tam, tiempoTotal));
+                }
             }
         } 
 
-        System.err.println("\n¡Benchmarks en Java finalizados! Archivo CSV generado.");
+        System.err.println("\nBenchmarks en Java finalizados. Archivo CSV generado.");
     }
 }

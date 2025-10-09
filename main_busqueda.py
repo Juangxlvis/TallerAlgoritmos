@@ -11,9 +11,9 @@ print("Iniciando benchmarks de BÚSQUEDA en Python...")
 
 resultados_busqueda = []
 algoritmos_busqueda = {
-    "BinarySearch": binary_search,
-    "JumpSearch": jump_search,
-    "TernarySearch": ternary_search
+    "BinarySearch": (binary_search, "O(log n)"),
+    "JumpSearch": (jump_search, "O(√n)"),
+    "TernarySearch": (ternary_search, "O(log n)")
 }
 
 tamaños = [10000, 100000, 1000000]
@@ -30,7 +30,7 @@ for tam in tamaños:
     
     print(f"\n--- Probando con {tam} elementos ordenados ---")
 
-    for nombre, funcion_busq in algoritmos_busqueda.items():
+    for nombre, (funcion_busq, complejidad) in algoritmos_busqueda.items():
         start_time = time.perf_counter()
         # Se realizan múltiples búsquedas para obtener una medición más estable
         for _ in range(100):
@@ -40,10 +40,11 @@ for tam in tamaños:
         # El tiempo total se divide por el número de repeticiones
         tiempo_promedio = (end_time - start_time) / 100
         
-        print(f" check : {nombre}: {tiempo_promedio:.8f} segundos")
+        print(f" check : {nombre} ({complejidad}): {tiempo_promedio:.8f} segundos")
         
         resultados_busqueda.append({
             "algoritmo": nombre,
+            "complejidad": complejidad,
             "lenguaje": "Python",
             "tamaño": tam,
             "tiempo": tiempo_promedio

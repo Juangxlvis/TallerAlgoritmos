@@ -1,10 +1,10 @@
-algoritmo;lenguaje;tamaño;tiempo
-BinarySearch;Java;10000;0,00001929
-JumpSearch;Java;10000;0,00000100
-TernarySearch;Java;10000;0,00000054
-BinarySearch;Java;100000;0,00000113
-JumpSearch;Java;100000;0,00000057
-TernarySearch;Java;100000;0,00000074
-BinarySearch;Java;1000000;0,00000024
-JumpSearch;Java;1000000;0,00000048
-TernarySearch;Java;1000000;0,00000072
+algoritmo;complejidad;lenguaje;tamaño;tiempo
+BinarySearch;O(log n);Java;10000;0,00004764
+JumpSearch;O(sqrt(n));Java;10000;0,00000163
+TernarySearch;O(log n);Java;10000;0,00000129
+BinarySearch;O(log n);Java;100000;0,00000190
+JumpSearch;O(sqrt(n));Java;100000;0,00000111
+TernarySearch;O(log n);Java;100000;0,00000177
+BinarySearch;O(log n);Java;1000000;0,00000050
+JumpSearch;O(sqrt(n));Java;1000000;0,00000110
+TernarySearch;O(log n);Java;1000000;0,00000218

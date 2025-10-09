@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
 
 public class MainBusqueda {
 
@@ -24,7 +26,6 @@ public class MainBusqueda {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        // Los mensajes de estado van a la consola de error
         System.err.println("Iniciando benchmarks de BÚSQUEDA en Java...");
         
         String[] nombresAlgoritmos = {"BinarySearch", "JumpSearch", "TernarySearch"};
@@ -32,19 +33,23 @@ public class MainBusqueda {
         int elementoABuscar = -1;
         int repeticiones = 100;
 
+        Map<String, String> complejidades = new HashMap<>();
+        complejidades.put("BinarySearch", "O(log n)");
+        complejidades.put("JumpSearch", "O(sqrt(n))");
+        complejidades.put("TernarySearch", "O(log n)");
+
         try (PrintWriter writer = new PrintWriter("results/tiempos_busqueda_java.csv")) {
             
-            writer.println("algoritmo;lenguaje;tamaño;tiempo");
+            writer.println("algoritmo;complejidad;lenguaje;tamaño;tiempo");
 
             for (int tam : tamaños) {
                 String rutaArchivo = String.format("data/datos_%d.txt", tam);
                 int[] datosOriginales = leerDatos(rutaArchivo);
-                
                 Arrays.sort(datosOriginales);
-                
                 System.err.println(String.format("\n--- Probando con %d elementos ordenados ---", tam));
 
                 for (String nombreAlg : nombresAlgoritmos) {
+                    String complejidad = complejidades.get(nombreAlg);
                     long startTime = System.nanoTime();
 
                     for (int i = 0; i < repeticiones; i++) {
@@ -57,12 +62,12 @@ public class MainBusqueda {
 
                     long endTime = System.nanoTime();
                     double tiempoTotalPromedio = ((double)(endTime - startTime) / repeticiones) / 1e9;
-
-                    writer.println(String.format("%s;Java;%d;%.8f", nombreAlg, tam, tiempoTotalPromedio));
+                    
+                    System.err.println(String.format("  - %s (%s): %.8f segundos", nombreAlg, complejidad, tiempoTotalPromedio));
+                    writer.println(String.format("%s;%s;Java;%d;%.8f", nombreAlg, complejidad, tam, tiempoTotalPromedio));
                 }
             }
         } 
-
-        System.err.println("\n¡Benchmarks de búsqueda en Java finalizados! Archivo CSV generado.");
+        System.err.println("\nBenchmarks de búsqueda en Java finalizados. Archivo CSV generado.");
     }
 }

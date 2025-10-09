@@ -14,11 +14,11 @@ print("Iniciando benchmarks de ORDENAMIENTO en Python...")
 resultados = []
 # Diccionario que asocia el nombre del algoritmo con su función
 algoritmos = {
-    "ShakerSort": shaker_sort,
-    "DualPivotQuickSort": dual_pivot_quicksort,
-    "HeapSort": heap_sort,
-    "MergeSort": merge_sort,
-    "RadixSort": radix_sort
+    "ShakerSort": (shaker_sort, "O(n²)"),
+    "DualPivotQuickSort": (dual_pivot_quicksort, "O(n log n)"),
+    "HeapSort": (heap_sort, "O(n log n)"),
+    "MergeSort": (merge_sort, "O(n log n)"),
+    "RadixSort": (radix_sort, "O(n·k)")
 }
 
 tamaños = [10000, 100000, 1000000]
@@ -28,13 +28,14 @@ for tam in tamaños:
     datos = leer_datos(ruta_archivo)
     print(f"\n--- Probando con {tam} elementos ---")
 
-    for nombre, funcion_sort in algoritmos.items():
+    for nombre, (funcion_sort, complejidad) in algoritmos.items():
 
         if nombre == "ShakerSort" and tam == 1000000:
-            print(f" {nombre}: Omitido por ser demasiado lento (estimado > 10 horas)")
+            print(f" {nombre} ({complejidad}): Omitido por ser demasiado lento (estimado > 10 horas)")
             # Añadimos un resultado simbólico para que el CSV quede completo
             resultados.append({
                 "algoritmo": nombre,
+                "complejidad": complejidad,
                 "lenguaje": "Python",
                 "tamaño": tam,
                 "tiempo": float('inf') # Usamos infinito para representar el tiempo
@@ -48,10 +49,11 @@ for tam in tamaños:
         end_time = time.perf_counter()
 
         tiempo_total = end_time - start_time
-        print(f" check : {nombre}: {tiempo_total:.4f} segundos")
+        print(f" check : {nombre} ({complejidad}): {tiempo_total:.4f} segundos")
         
         resultados.append({
             "algoritmo": nombre,
+            "complejidad": complejidad,
             "lenguaje": "Python",
             "tamaño": tam,
             "tiempo": tiempo_total
